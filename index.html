@@ -26,17 +26,40 @@
       margin: 0.5rem 0 0;
       font-size: 1.2rem;
     }
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #1f2937;
+      padding: 0.5rem 0;
+      gap: 2rem;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+    }
+    nav button.active {
+      border-bottom: 2px solid #60a5fa;
+      font-weight: bold;
+    }
     main {
       padding: 2rem;
       max-width: 960px;
       margin: auto;
     }
     .project {
-      margin-bottom: 3rem;
+      display: none;
       background: white;
       padding: 1.5rem;
       border-radius: 1rem;
       box-shadow: 0 0 20px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+    }
+    .project.active {
+      display: block;
     }
     .project h2 {
       margin-top: 0;
@@ -63,8 +86,16 @@
     <h1>Dominik Urbaniak</h1>
     <p>Robotics Researcher | AI Systems | Manipulation & Perception</p>
   </header>
+
+  <nav>
+    <button class="tab active" onclick="showProject(0)">Trajectory Planning</button>
+    <button class="tab" onclick="showProject(1)">5G Edge Robotics</button>
+    <button class="tab" onclick="showProject(2)">Task & Motion Planning</button>
+    <button class="tab" onclick="showProject(3)">HDR Depth Estimation</button>
+  </nav>
+
   <main>
-    <section class="project">
+    <section class="project active">
       <h2>⚙️ Fast and Smooth Trajectory Generation for Robot Manipulators</h2>
       <p>Near-optimal trajectory planning for pick-and-place tasks using real and simulated experiments. Includes point cloud perception, collision checking, and UR5e execution. (Journal paper in progress)</p>
       <video controls src="videos/trajectory_planning.mp4"></video>
@@ -93,5 +124,17 @@
     <p>Connect on <a href="https://www.linkedin.com/in/dominikurbaniak" target="_blank">LinkedIn</a></p>
     <p>&copy; 2025 Dominik Urbaniak</p>
   </footer>
+
+  <script>
+    function showProject(index) {
+      const tabs = document.querySelectorAll(".tab");
+      const projects = document.querySelectorAll(".project");
+
+      tabs.forEach((tab, i) => {
+        tab.classList.toggle("active", i === index);
+        projects[i].classList.toggle("active", i === index);
+      });
+    }
+  </script>
 </body>
 </html>
