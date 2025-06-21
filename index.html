@@ -66,13 +66,14 @@
     .project h2 {
       margin-top: 0;
     }
+    .gallery-container {
+      position: relative;
+    }
     .gallery {
       display: flex;
-      overflow-x: auto;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
       gap: 1rem;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      margin-bottom: 1rem;
     }
     .gallery-item {
       flex: 0 0 100%;
@@ -88,6 +89,20 @@
     .gallery figcaption {
       margin-top: 0.25rem;
       font-size: 0.9rem;
+    }
+    .gallery-controls {
+      text-align: center;
+      margin: 0.5rem 0 1.5rem;
+    }
+    .gallery-controls button {
+      font-size: 1.2rem;
+      padding: 0.25rem 0.75rem;
+      margin: 0 0.25rem;
+      border: none;
+      background: #1f2937;
+      color: white;
+      border-radius: 0.25rem;
+      cursor: pointer;
     }
     .video-section {
       margin-top: 1rem;
@@ -125,7 +140,10 @@
     <section class="project active">
       <h2>⚙️ Fast and Smooth Trajectory Generation for Robot Manipulators</h2>
       <p>Near-optimal trajectory planning for pick-and-place tasks using real and simulated experiments. Includes point cloud perception, collision checking, and UR5e execution. (Journal paper in progress)</p>
-      <div class="gallery" id="gallery1"></div>
+      <div class="gallery-container">
+        <div class="gallery-controls"><button onclick="scrollGallery('gallery1', -1)">&#8592;</button><button onclick="scrollGallery('gallery1', 1)">&#8594;</button></div>
+        <div class="gallery" id="gallery1"></div>
+      </div>
       <div class="video-section">
         <video controls src="videos/trajectory_planning.mp4"></video>
       </div>
@@ -134,7 +152,10 @@
     <section class="project">
       <h2>📡 5G Edge Computing with Real Robot Experiments</h2>
       <p>Robot control over 5G networks with edge computation for latency-sensitive manipulation. Tasks include push-based and teleoperation interaction. (Journal paper, includes video submission)</p>
-      <div class="gallery" id="gallery2"></div>
+      <div class="gallery-container">
+        <div class="gallery-controls"><button onclick="scrollGallery('gallery2', -1)">&#8592;</button><button onclick="scrollGallery('gallery2', 1)">&#8594;</button></div>
+        <div class="gallery" id="gallery2"></div>
+      </div>
       <div class="video-section">
         <video controls src="videos/5g_edge_robotics.mp4"></video>
       </div>
@@ -143,7 +164,10 @@
     <section class="project">
       <h2>🧠 Task & Motion Planning for Long-Horizon Tasks</h2>
       <p>Simulation-based experiments using symbolic task planning and motion primitives, monitored via a custom MATLAB dashboard. (Conference paper, includes video submission)</p>
-      <div class="gallery" id="gallery3"></div>
+      <div class="gallery-container">
+        <div class="gallery-controls"><button onclick="scrollGallery('gallery3', -1)">&#8592;</button><button onclick="scrollGallery('gallery3', 1)">&#8594;</button></div>
+        <div class="gallery" id="gallery3"></div>
+      </div>
       <div class="video-section">
         <video controls src="videos/tamp_experiment.mp4"></video>
       </div>
@@ -152,7 +176,10 @@
     <section class="project">
       <h2>🌄 Depth Estimation with High Dynamic Range Imaging</h2>
       <p>Depth prediction from a custom-built stereo camera leveraging HDR capture for robust results in extreme lighting conditions.</p>
-      <div class="gallery" id="gallery4"></div>
+      <div class="gallery-container">
+        <div class="gallery-controls"><button onclick="scrollGallery('gallery4', -1)">&#8592;</button><button onclick="scrollGallery('gallery4', 1)">&#8594;</button></div>
+        <div class="gallery" id="gallery4"></div>
+      </div>
     </section>
   </main>
 
@@ -171,6 +198,12 @@
       });
     }
 
+    function scrollGallery(id, direction) {
+      const container = document.getElementById(id);
+      const itemWidth = container.querySelector('.gallery-item')?.offsetWidth || container.offsetWidth;
+      container.scrollBy({ left: itemWidth * direction, behavior: 'smooth' });
+    }
+
     const galleryData = {
       1: ["Placeholder description 1 for project 1", "Placeholder description 2 for project 1", "Placeholder description 3 for project 1", "Placeholder description 4 for project 1", "Placeholder description 5 for project 1"],
       2: ["Placeholder description 1 for project 2", "Placeholder description 2 for project 2", "Placeholder description 3 for project 2", "Placeholder description 4 for project 2"],
@@ -185,7 +218,7 @@
         const figure = document.createElement('figure');
         const img = document.createElement('img');
         const caption = document.createElement('figcaption');
-        img.src = `data/${projectId}_${imgIndex}.png`;
+        img.src = `images/${projectId}_${imgIndex}.png`;
         img.alt = desc;
         caption.textContent = desc;
         figure.appendChild(img);
