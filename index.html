@@ -48,7 +48,8 @@
     }
     main {
       padding: 1.5rem 1rem;
-      max-width: 100%;
+      max-width: 1100px;
+      margin: auto;
       box-sizing: border-box;
     }
     .project {
@@ -57,8 +58,7 @@
       padding: 1.2rem;
       border-radius: 1rem;
       box-shadow: 0 0 20px rgba(0,0,0,0.05);
-      margin: auto;
-      max-width: 700px;
+      margin-bottom: 2rem;
     }
     .project.active {
       display: block;
@@ -72,12 +72,20 @@
       gap: 1rem;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
+      margin-bottom: 1rem;
     }
     .gallery-item {
       flex: 0 0 100%;
       scroll-snap-align: start;
     }
     .gallery img, .gallery video {
+      width: 100%;
+      border-radius: 0.5rem;
+    }
+    .video-section {
+      margin-top: 1rem;
+    }
+    .video-section video {
       width: 100%;
       border-radius: 0.5rem;
     }
@@ -114,9 +122,9 @@
         <div class="gallery-item">
           <img src="images/trajectory_preview.jpg" alt="Trajectory Planning">
         </div>
-        <div class="gallery-item">
-          <video controls src="videos/trajectory_planning.mp4"></video>
-        </div>
+      </div>
+      <div class="video-section">
+        <video controls src="videos/trajectory_planning.mp4"></video>
       </div>
     </section>
 
@@ -127,9 +135,9 @@
         <div class="gallery-item">
           <img src="images/5g_preview.jpg" alt="5G Experiment">
         </div>
-        <div class="gallery-item">
-          <video controls src="videos/5g_edge_robotics.mp4"></video>
-        </div>
+      </div>
+      <div class="video-section">
+        <video controls src="videos/5g_edge_robotics.mp4"></video>
       </div>
     </section>
 
@@ -140,9 +148,9 @@
         <div class="gallery-item">
           <img src="images/tamp_dashboard.png" alt="TAMP Dashboard Screenshot">
         </div>
-        <div class="gallery-item">
-          <video controls src="videos/tamp_experiment.mp4"></video>
-        </div>
+      </div>
+      <div class="video-section">
+        <video controls src="videos/tamp_experiment.mp4"></video>
       </div>
     </section>
 
