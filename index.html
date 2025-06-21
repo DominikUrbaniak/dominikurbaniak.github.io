@@ -78,9 +78,16 @@
       flex: 0 0 100%;
       scroll-snap-align: start;
     }
-    .gallery img, .gallery video {
+    .gallery figure {
+      margin: 0;
+    }
+    .gallery img {
       width: 100%;
       border-radius: 0.5rem;
+    }
+    .gallery figcaption {
+      margin-top: 0.25rem;
+      font-size: 0.9rem;
     }
     .video-section {
       margin-top: 1rem;
@@ -118,11 +125,7 @@
     <section class="project active">
       <h2>⚙️ Fast and Smooth Trajectory Generation for Robot Manipulators</h2>
       <p>Near-optimal trajectory planning for pick-and-place tasks using real and simulated experiments. Includes point cloud perception, collision checking, and UR5e execution. (Journal paper in progress)</p>
-      <div class="gallery">
-        <div class="gallery-item">
-          <img src="images/trajectory_preview.jpg" alt="Trajectory Planning">
-        </div>
-      </div>
+      <div class="gallery" id="gallery1"></div>
       <div class="video-section">
         <video controls src="videos/trajectory_planning.mp4"></video>
       </div>
@@ -131,11 +134,7 @@
     <section class="project">
       <h2>📡 5G Edge Computing with Real Robot Experiments</h2>
       <p>Robot control over 5G networks with edge computation for latency-sensitive manipulation. Tasks include push-based and teleoperation interaction. (Journal paper, includes video submission)</p>
-      <div class="gallery">
-        <div class="gallery-item">
-          <img src="images/5g_preview.jpg" alt="5G Experiment">
-        </div>
-      </div>
+      <div class="gallery" id="gallery2"></div>
       <div class="video-section">
         <video controls src="videos/5g_edge_robotics.mp4"></video>
       </div>
@@ -144,11 +143,7 @@
     <section class="project">
       <h2>🧠 Task & Motion Planning for Long-Horizon Tasks</h2>
       <p>Simulation-based experiments using symbolic task planning and motion primitives, monitored via a custom MATLAB dashboard. (Conference paper, includes video submission)</p>
-      <div class="gallery">
-        <div class="gallery-item">
-          <img src="images/tamp_dashboard.png" alt="TAMP Dashboard Screenshot">
-        </div>
-      </div>
+      <div class="gallery" id="gallery3"></div>
       <div class="video-section">
         <video controls src="videos/tamp_experiment.mp4"></video>
       </div>
@@ -157,11 +152,7 @@
     <section class="project">
       <h2>🌄 Depth Estimation with High Dynamic Range Imaging</h2>
       <p>Depth prediction from a custom-built stereo camera leveraging HDR capture for robust results in extreme lighting conditions.</p>
-      <div class="gallery">
-        <div class="gallery-item">
-          <img src="images/hdr_depth_demo.jpg" alt="HDR Depth Estimation">
-        </div>
-      </div>
+      <div class="gallery" id="gallery4"></div>
     </section>
   </main>
 
@@ -174,12 +165,35 @@
     function showProject(index) {
       const tabs = document.querySelectorAll(".tab");
       const projects = document.querySelectorAll(".project");
-
       tabs.forEach((tab, i) => {
         tab.classList.toggle("active", i === index);
         projects[i].classList.toggle("active", i === index);
       });
     }
+
+    const galleryData = {
+      1: ["Placeholder description 1 for project 1", "Placeholder description 2 for project 1"],
+      2: ["Placeholder description 1 for project 2", "Placeholder description 2 for project 2"],
+      3: ["Placeholder description 1 for project 3", "Placeholder description 2 for project 3"],
+      4: ["Placeholder description 1 for project 4", "Placeholder description 2 for project 4"]
+    };
+
+    Object.entries(galleryData).forEach(([projectId, descriptions]) => {
+      const gallery = document.getElementById(`gallery${projectId}`);
+      descriptions.forEach((desc, i) => {
+        const imgIndex = (i + 1).toString().padStart(2, '0');
+        const figure = document.createElement('figure');
+        const img = document.createElement('img');
+        const caption = document.createElement('figcaption');
+        img.src = `images/${projectId}_${imgIndex}.png`;
+        img.alt = desc;
+        caption.textContent = desc;
+        figure.appendChild(img);
+        figure.appendChild(caption);
+        figure.classList.add('gallery-item');
+        gallery.appendChild(figure);
+      });
+    });
   </script>
 </body>
 </html>
