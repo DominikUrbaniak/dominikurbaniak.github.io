@@ -1,7 +1,97 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dominik Urbaniak – Robotics & AI Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background: #0d1117;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    header p {
+      margin: 0.5rem 0 0;
+      font-size: 1.2rem;
+    }
+    main {
+      padding: 2rem;
+      max-width: 960px;
+      margin: auto;
+    }
+    .project {
+      margin-bottom: 3rem;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    .project h2 {
+      margin-top: 0;
+    }
+    .project img, .project video {
+      width: 100%;
+      border-radius: 0.5rem;
+      margin: 1rem 0;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      background: #eee;
+    }
+    a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+  </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+  <header>
+    <h1>Dominik Urbaniak</h1>
+    <p>Robotics Researcher | AI Systems | Manipulation & Perception</p>
+  </header>
+  <main>
+    <section class="project">
+      <h2>⚙️ Fast and Smooth Trajectory Generation for Robot Manipulators</h2>
+      <p>Near-optimal trajectory planning for pick-and-place tasks using real and simulated experiments. Includes point cloud perception, collision checking, and UR5e execution. (Journal paper in progress)</p>
+      <video controls src="videos/trajectory_planning.mp4"></video>
+    </section>
+
+    <section class="project">
+      <h2>📡 5G Edge Computing with Real Robot Experiments</h2>
+      <p>Robot control over 5G networks with edge computation for latency-sensitive manipulation. Tasks include push-based and teleoperation interaction. (Journal paper)</p>
+      <video controls src="videos/5g_edge_robotics.mp4"></video>
+    </section>
+
+    <section class="project">
+      <h2>🧠 Task & Motion Planning for Long-Horizon Tasks</h2>
+      <p>Simulation-based experiments using symbolic task planning and motion primitives, monitored via a custom MATLAB dashboard. (Conference paper)</p>
+      <img src="images/tamp_dashboard.png" alt="TAMP Dashboard Screenshot">
+    </section>
+
+    <section class="project">
+      <h2>🌄 Depth Estimation with High Dynamic Range Imaging</h2>
+      <p>Depth prediction from a custom-built stereo camera leveraging HDR capture for robust results in extreme lighting conditions.</p>
+      <img src="images/hdr_depth_demo.jpg" alt="HDR Depth Estimation">
+    </section>
+  </main>
+
+  <footer>
+    <p>Connect on <a href="https://www.linkedin.com/in/dominikurbaniak" target="_blank">LinkedIn</a></p>
+    <p>&copy; 2025 Dominik Urbaniak</p>
+  </footer>
 </body>
 </html>
