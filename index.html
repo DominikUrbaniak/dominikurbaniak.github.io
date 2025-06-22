@@ -212,6 +212,23 @@
     transform: scale(1.5);
     cursor: zoom-out;
   }
+  .gallery-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+  .gallery-indicators span {
+    width: 12px;
+    height: 12px;
+    background-color: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .gallery-indicators span.active {
+    background-color: #0366d6;
+  }
   </style>
 </head>
 <body>
@@ -311,8 +328,26 @@
       });
     }
 
+    function setupDotNavigation() {
+      document.querySelectorAll('[id^="gallery"]').forEach((gallery) => {
+        const galleryId = gallery.id;
+        const indicators = document.getElementById(`indicators${galleryId.replace('gallery', '')}`);
+        if (!indicators) return;
+        indicators.querySelectorAll('span').forEach((dot, index) => {
+          dot.addEventListener('click', () => {
+            const itemWidth = gallery.querySelector('.gallery-item')?.offsetWidth || gallery.offsetWidth;
+            gallery.scrollTo({ left: itemWidth * index, behavior: 'smooth' });
+            indicators.querySelectorAll('span').forEach((d, i) => {
+              d.classList.toggle('active', i === index);
+            });
+          });
+        });
+      });
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       document.querySelectorAll('.gallery-controls').forEach(injectSvgArrows);
+      setupDotNavigation();
     });
 
     const galleryData = {
