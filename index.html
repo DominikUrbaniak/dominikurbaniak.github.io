@@ -229,12 +229,11 @@
 
   <main>
     <section class="project active">
-      <h2>⚙️ Fast and Smooth Trajectory Generation for Robot Manipulators</h2>
+      <h2>Fast and Smooth Trajectory Generation for Robot Manipulators</h2>
       <p>Near-optimal trajectory planning for pick-and-place tasks using real and simulated experiments. Includes point cloud perception, collision checking, and UR5e execution. (Journal paper in progress)</p>
       <div class="gallery-container">
         <div class="gallery-controls"><button onclick="scrollGallery('gallery1', -1)">&#8592;</button><button onclick="scrollGallery('gallery1', 1)">&#8594;</button></div>
         <div class="gallery" id="gallery1"></div>
-        <div class="gallery-indicators" id="indicators1"></div>
       </div>
       <div class="video-section">
         <video controls src="videos/trajectory_planning.mp4"></video>
@@ -242,7 +241,7 @@
     </section>
 
     <section class="project">
-      <h2>📡 5G Edge Computing with Real Robot Experiments</h2>
+      <h2>5G Edge Computing with Real Robot Experiments</h2>
       <p>Robot control over 5G networks with edge computation for latency-sensitive manipulation. Tasks include push-based and teleoperation interaction. (Journal paper, includes video submission)</p>
       <div class="gallery-container">
         <div class="gallery-controls"><button onclick="scrollGallery('gallery2', -1)">&#8592;</button><button onclick="scrollGallery('gallery2', 1)">&#8594;</button></div>
@@ -255,7 +254,7 @@
     </section>
 
     <section class="project">
-      <h2>🧠 Task & Motion Planning for Long-Horizon Tasks</h2>
+      <h2>Task & Motion Planning for Long-Horizon Tasks</h2>
       <p>Simulation-based experiments using symbolic task planning and motion primitives, monitored via a custom MATLAB dashboard. (Conference paper, includes video submission)</p>
       <div class="gallery-container">
         <div class="gallery-controls"><button onclick="scrollGallery('gallery3', -1)">&#8592;</button><button onclick="scrollGallery('gallery3', 1)">&#8594;</button></div>
@@ -268,7 +267,7 @@
     </section>
 
     <section class="project">
-      <h2>🌄 Depth Estimation with High Dynamic Range Imaging</h2>
+      <h2>Depth Estimation with High Dynamic Range Imaging</h2>
       <p>Depth prediction from a custom-built stereo camera leveraging HDR capture for robust results in extreme lighting conditions.</p>
       <div class="gallery-container">
         <div class="gallery-controls"><button onclick="scrollGallery('gallery4', -1)">&#8592;</button><button onclick="scrollGallery('gallery4', 1)">&#8594;</button></div>
@@ -297,32 +296,6 @@
       const container = document.getElementById(id);
       const itemWidth = container.querySelector('.gallery-item')?.offsetWidth || container.offsetWidth;
       container.scrollBy({ left: itemWidth * direction, behavior: 'smooth' });
-    }
-
-    const autoScrollTimers = {};
-
-    function startAutoScroll(galleryId, indicators, length) {
-      stopAutoScroll(galleryId);
-      let gallery = document.getElementById(galleryId);
-      let index = 0;
-      autoScrollTimers[galleryId] = setInterval(() => {
-        if (!(gallery.matches(':hover') || gallery.dataset.pause === "true")) {
-          const itemWidth = gallery.querySelector('.gallery-item')?.offsetWidth || gallery.offsetWidth;
-          index = (index + 1) % length;
-          gallery.scrollTo({ left: itemWidth * index, behavior: 'smooth' });
-          Array.from(indicators.children).forEach((dot, i) => dot.classList.toggle('active', i === index));
-        }
-      }, 5000);
-
-      // Pause on touch for mobile
-      gallery.addEventListener('touchstart', () => gallery.dataset.pause = "true");
-      gallery.addEventListener('touchend', () => setTimeout(() => gallery.dataset.pause = "false", 3000));
-    }
-
-    function stopAutoScroll(galleryId) {
-      if (autoScrollTimers[galleryId]) {
-        clearInterval(autoScrollTimers[galleryId]);
-      }
     }
 
     function injectSvgArrows(container) {
@@ -368,15 +341,6 @@
         if (i === 0) dot.classList.add('active');
         indicators.appendChild(dot);
       });
-
-      // Auto scroll
-      let index = 0;
-      setInterval(() => {
-        const itemWidth = gallery.querySelector('.gallery-item')?.offsetWidth || gallery.offsetWidth;
-        index = (index + 1) % descriptions.length;
-        gallery.scrollTo({ left: itemWidth * index, behavior: 'smooth' });
-        Array.from(indicators.children).forEach((dot, i) => dot.classList.toggle('active', i === index));
-      }, 5000);
 
       // Touch swipe updates indicators
       let timeout;
