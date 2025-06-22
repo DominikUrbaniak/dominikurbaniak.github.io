@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects – Dominik Urbaniak</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="favicon.ico" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #1f2937;
+      padding: 1rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: bold;
+    }
+    nav a.active {
+      border-bottom: 2px solid #60a5fa;
+    }
+    main {
+      padding: 2rem 1rem;
+      max-width: 1100px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+    }
+    .project {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+    }
+    .project h2 {
+      font-size: 1.6rem;
+      border-left: 5px solid #60a5fa;
+      padding-left: 1rem;
+    }
+    .video-section video {
+      width: 100%;
+      border-radius: 0.5rem;
+    }
+    .gallery-container {
+      position: relative;
+    }
+    .gallery {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 1rem;
+      scroll-behavior: smooth;
+      padding-bottom: 1rem;
+    }
+    .gallery-item {
+      flex: 0 0 100%;
+      scroll-snap-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .gallery img {
+      max-height: 400px;
+      max-width: 100%;
+      border-radius: 0.5rem;
+    }
+    .gallery figcaption {
+      margin-top: 0.25rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="projects.html" class="active">Projects</a>
+  </nav>
+
+  <main>
+    <h1>My Projects</h1>
+
+    <section class="project" id="trajectory-planning">
+      <h2>Fast and Smooth Trajectory Generation for Robot Manipulators</h2>
+      <p>Near-optimal trajectory planning for pick-and-place tasks using real and simulated experiments. Includes point cloud perception, collision checking, and UR5e execution. (Journal paper in progress)</p>
+      <div class="video-section">
+        <video controls src="videos/trajectory_generation.mp4"></video>
+      </div>
+    </section>
+
+    <section class="project">
+      <h2>5G Edge Computing with Real Robot Experiments</h2>
+      <p>Robot control over 5G networks with edge computation for latency-sensitive manipulation. Tasks include push-based and teleoperation interaction. (Journal paper, includes video submission)</p>
+      <div class="video-section">
+        <video controls src="videos/IEEE_Access_2024_final.mp4"></video>
+      </div>
+    </section>
+
+    <section class="project">
+      <h2>Task & Motion Planning for Long-Horizon Tasks</h2>
+      <p>Simulation-based experiments using symbolic task planning and motion primitives, monitored via a custom MATLAB dashboard. (Conference paper, includes video submission)</p>
+      <div class="video-section">
+        <video controls src="videos/humanoids_video_final.mp4"></video>
+      </div>
+    </section>
+
+    <section class="project">
+      <h2>Depth Estimation with High Dynamic Range Imaging</h2>
+      <p>Depth prediction from a custom-built stereo camera leveraging HDR capture for robust results in extreme lighting conditions.</p>
+    </section>
+  </main>
+</body>
+</html>

@@ -3,6 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio of Dominik Urbaniak, a robotics and AI researcher with practical experience in manipulation, perception, and planning systems." />
+  <meta property="og:title" content="Dominik Urbaniak – Robotics & AI Portfolio" />
+  <meta property="og:description" content="Showcasing robotics and AI projects in manipulation, perception, edge computing and planning." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="preview.png" />
+  <meta property="og:url" content="https://dominikurbaniak.github.io" />
+  <link rel="icon" href="favicon.ico" />
   <title>Dominik Urbaniak – Robotics & AI Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
@@ -12,120 +19,62 @@
       background: #f9f9f9;
       color: #333;
     }
-    header {
-      background: #0d1117;
-      color: white;
-      padding: 2rem 1rem;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2.2rem;
-    }
-    header p {
-      margin: 0.5rem 0 0;
-      font-size: 1rem;
-    }
     nav {
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
       background: #1f2937;
-      padding: 0.5rem 0;
-      gap: 1rem;
+      padding: 1rem;
     }
-    nav button {
-      background: none;
-      border: none;
+    nav a {
       color: white;
-      font-size: 0.95rem;
-      cursor: pointer;
-      padding: 0.5rem 1rem;
-    }
-    nav button.active {
-      border-bottom: 2px solid #60a5fa;
+      text-decoration: none;
+      margin: 0 1rem;
       font-weight: bold;
     }
+    nav a.active {
+      border-bottom: 2px solid #60a5fa;
+    }
     main {
-      padding: 1.5rem 1rem;
+      padding: 2rem 1rem;
       max-width: 1100px;
       margin: auto;
-      box-sizing: border-box;
     }
-    .project {
-      display: none;
-      background: white;
-      padding: 1.2rem;
+    .intro {
+      text-align: center;
+      max-width: 800px;
+      margin: 2rem auto;
+      font-size: 1.1rem;
+    }
+    .cta-button {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
+      background-color: #0366d6;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      text-decoration: none;
+    }
+    .cta-button:hover {
+      background-color: #0253b3;
+    }
+    .about {
+      background: #fff;
+      padding: 2rem;
+      margin-top: 2rem;
       border-radius: 1rem;
       box-shadow: 0 0 20px rgba(0,0,0,0.05);
-      margin-bottom: 2rem;
     }
-    .project.active {
-      display: block;
+    .about h2 {
+      font-size: 1.6rem;
+      border-left: 5px solid #60a5fa;
+      padding-left: 1rem;
     }
-    .project h2 {
-      margin-top: 0;
-    }
-    .gallery-container {
-      position: relative;
-    }
-    .gallery {
-      display: flex;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-      gap: 1rem;
-      touch-action: pan-y;
-    }
-    .gallery-item {
-      flex: 0 0 100%;
-      scroll-snap-align: start;
-    }
-    .gallery figure {
-      margin: 0;
-    }
-    .gallery img {
-      width: 100%;
-      border-radius: 0.5rem;
-    }
-    .gallery figcaption {
-      margin-top: 0.25rem;
-      font-size: 0.9rem;
-    }
-    .gallery-controls {
-      text-align: center;
-      margin: 0.5rem 0 1rem;
-    }
-    .gallery-controls button {
-      font-size: 1.2rem;
-      padding: 0.25rem 0.75rem;
-      margin: 0 0.25rem;
-      border: none;
-      background: #1f2937;
-      color: white;
-      border-radius: 0.25rem;
-      cursor: pointer;
-    }
-    .gallery-indicators {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-    .gallery-indicators span {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      background: #ccc;
-      border-radius: 50%;
-      margin: 0 5px;
-    }
-    .gallery-indicators span.active {
-      background: #0366d6;
-    }
-    .video-section {
-      margin-top: 1rem;
-    }
-    .video-section video {
-      width: 100%;
-      border-radius: 0.5rem;
+    .about p {
+      max-width: 800px;
+      margin: auto;
+      line-height: 1.6;
     }
     footer {
       text-align: center;
@@ -137,161 +86,24 @@
       color: #0366d6;
       text-decoration: none;
     }
-    .gallery-controls {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 1rem;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 10;
-  }
-  .gallery-container:hover .gallery-controls,
-  .gallery-container:has(.gallery:focus-within) .gallery-controls {
-    opacity: 1;
-  }
-  .gallery-controls button {
-    background: rgba(0, 0, 0, 0.5);
-    border: none;
-    border-radius: 50%;
-    width: 2.5rem;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    pointer-events: auto;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    transition: background 0.3s ease, transform 0.2s ease;
-  }
-  .gallery-controls button:hover {
-    background: rgba(0, 0, 0, 0.8);
-    transform: scale(1.1);
-  }
-  .gallery-controls svg {
-    width: 1.2rem;
-    height: 1.2rem;
-    fill: white;
-  }
-  .gallery {
-    display: flex;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    gap: 1rem;
-    touch-action: pan-y;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-  }
-  .gallery-item {
-    flex: 0 0 100%;
-    scroll-snap-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 60vh;
-    max-height: 500px;
-    box-sizing: border-box;
-  }
-  .gallery img {
-    max-height: 80%;
-    width: auto;
-    max-width: 100%;
-    object-fit: contain;
-    border-radius: 0.5rem;
-    transition: transform 0.3s ease;
-    display: block;
-    margin: 0 auto;
-    touch-action: manipulation;
-  }
-  .gallery img:active {
-    transform: scale(1.5);
-    cursor: zoom-out;
-  }
-  .gallery-indicators {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    margin: 1rem 0;
-  }
-  .gallery-indicators span {
-    width: 12px;
-    height: 12px;
-    background-color: #ccc;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  .gallery-indicators span.active {
-    background-color: #0366d6;
-  }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Dominik Urbaniak</h1>
-    <p>Robotics Researcher | AI Systems | Manipulation & Perception</p>
-  </header>
-
   <nav>
-    <button class="tab active" onclick="showProject(0)">Trajectory Planning</button>
-    <button class="tab" onclick="showProject(1)">5G Edge Robotics</button>
-    <button class="tab" onclick="showProject(2)">Task & Motion Planning</button>
-    <button class="tab" onclick="showProject(3)">HDR Depth Estimation</button>
+    <a href="index.html" class="active">Home</a>
+    <a href="projects.html">Projects</a>
   </nav>
 
   <main>
-    <section class="project active">
-      <h2>Fast and Smooth Trajectory Generation for Robot Manipulators</h2>
-      <p>Near-optimal trajectory planning for pick-and-place tasks using real and simulated experiments. Includes point cloud perception, collision checking, and UR5e execution. (Journal paper in progress)</p>
-      <div class="gallery-container">
-        <div class="gallery-controls"><button onclick="scrollGallery('gallery1', -1)">&#8592;</button><button onclick="scrollGallery('gallery1', 1)">&#8594;</button></div>
-        <div class="gallery" id="gallery1"></div>
-        <div class="gallery-indicators" id="indicators1"></div>
-      </div>
-      <div class="video-section">
-        <video controls src="videos/trajectory_generation.mp4"></video>
-      </div>
+    <section class="intro">
+      <h1>Dominik Urbaniak</h1>
+      <p>I’m a robotics researcher focused on motion planning, perception, and applied AI. This portfolio highlights key hands-on projects and publications. Let's connect if you're interested in collaboration or hiring.</p>
+      <a href="projects.html" class="cta-button">View Projects →</a>
     </section>
 
-    <section class="project">
-      <h2>5G Edge Computing with Real Robot Experiments</h2>
-      <p>Robot control over 5G networks with edge computation for latency-sensitive manipulation. Tasks include push-based and teleoperation interaction. (Journal paper, includes video submission)</p>
-      <div class="gallery-container">
-        <div class="gallery-controls"><button onclick="scrollGallery('gallery2', -1)">&#8592;</button><button onclick="scrollGallery('gallery2', 1)">&#8594;</button></div>
-        <div class="gallery" id="gallery2"></div>
-        <div class="gallery-indicators" id="indicators2"></div>
-      </div>
-      <div class="video-section">
-        <video controls src="videos/IEEE_Access_2024_final.mp4"></video>
-      </div>
-    </section>
-
-    <section class="project">
-      <h2>Task & Motion Planning for Long-Horizon Tasks</h2>
-      <p>Simulation-based experiments using symbolic task planning and motion primitives, monitored via a custom MATLAB dashboard. (Conference paper, includes video submission)</p>
-      <div class="gallery-container">
-        <div class="gallery-controls"><button onclick="scrollGallery('gallery3', -1)">&#8592;</button><button onclick="scrollGallery('gallery3', 1)">&#8594;</button></div>
-        <div class="gallery" id="gallery3"></div>
-        <div class="gallery-indicators" id="indicators3"></div>
-      </div>
-      <div class="video-section">
-        <video controls src="videos/humanoids_video_final.mp4"></video>
-      </div>
-    </section>
-
-    <section class="project">
-      <h2>Depth Estimation with High Dynamic Range Imaging</h2>
-      <p>Depth prediction from a custom-built stereo camera leveraging HDR capture for robust results in extreme lighting conditions.</p>
-      <div class="gallery-container">
-        <div class="gallery-controls"><button onclick="scrollGallery('gallery4', -1)">&#8592;</button><button onclick="scrollGallery('gallery4', 1)">&#8594;</button></div>
-        <div class="gallery" id="gallery4"></div>
-        <div class="gallery-indicators" id="indicators4"></div>
-      </div>
+    <section id="about" class="about">
+      <h2>About Me</h2>
+      <p>I hold a PhD in robotics and specialize in developing intelligent robotic systems that integrate perception, planning, and control. My work spans academic and industrial settings and often includes real-world experiments using state-of-the-art robots like the UR5e. I’m particularly interested in motion planning, edge computing for robotics, and AI-based perception pipelines. This portfolio demonstrates my applied skills in robotics and AI, and I’m always open to new opportunities and collaborations.</p>
     </section>
   </main>
 
@@ -299,106 +111,5 @@
     <p>Connect on <a href="https://www.linkedin.com/in/dominikurbaniak" target="_blank">LinkedIn</a></p>
     <p>&copy; 2025 Dominik Urbaniak</p>
   </footer>
-
-  <script>
-    function showProject(index) {
-      const tabs = document.querySelectorAll(".tab");
-      const projects = document.querySelectorAll(".project");
-      tabs.forEach((tab, i) => {
-        tab.classList.toggle("active", i === index);
-        projects[i].classList.toggle("active", i === index);
-      });
-    }
-
-    function scrollGallery(id, direction) {
-      const container = document.getElementById(id);
-      const itemWidth = container.querySelector('.gallery-item')?.offsetWidth || container.offsetWidth;
-      container.scrollBy({ left: itemWidth * direction, behavior: 'smooth' });
-    }
-
-    function injectSvgArrows(container) {
-      container.querySelectorAll('button').forEach((btn, idx) => {
-        const arrow = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        arrow.setAttribute("viewBox", "0 0 24 24");
-        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        path.setAttribute("d", idx === 0 ? "M15 18l-6-6 6-6" : "M9 6l6 6-6 6");
-        arrow.appendChild(path);
-        btn.innerHTML = "";
-        btn.appendChild(arrow);
-      });
-    }
-
-    function setupDotNavigation() {
-      document.querySelectorAll('[id^="gallery"]').forEach((gallery) => {
-        const galleryId = gallery.id;
-        const indicators = document.getElementById(`indicators${galleryId.replace('gallery', '')}`);
-        if (!indicators) return;
-        indicators.querySelectorAll('span').forEach((dot, index) => {
-          dot.addEventListener('click', () => {
-            const itemWidth = gallery.querySelector('.gallery-item')?.offsetWidth || gallery.offsetWidth;
-            gallery.scrollTo({ left: itemWidth * index, behavior: 'smooth' });
-            indicators.querySelectorAll('span').forEach((d, i) => {
-              d.classList.toggle('active', i === index);
-            });
-          });
-        });
-      });
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      document.querySelectorAll('.gallery-controls').forEach(injectSvgArrows);
-      setupDotNavigation();
-    });
-
-    const galleryData = {
-      1: ["Placeholder description 1 for project 1", "Placeholder description 2 for project 1", "Placeholder description 3 for project 1", "Placeholder description 4 for project 1", "Placeholder description 5 for project 1"],
-      2: ["Placeholder description 1 for project 2", "Placeholder description 2 for project 2", "Placeholder description 3 for project 2", "Placeholder description 4 for project 2"],
-      3: ["Placeholder description 1 for project 3", "Placeholder description 2 for project 3"],
-      4: ["Placeholder description 1 for project 4", "Placeholder description 2 for project 4","Placeholder description 3 for project 4", "Placeholder description 4 for project 4", "Placeholder description 5 for project 4"]
-    };
-
-    Object.entries(galleryData).forEach(([projectId, descriptions]) => {
-      const gallery = document.getElementById(`gallery${projectId}`);
-      const indicators = document.getElementById(`indicators${projectId}`);
-      descriptions.forEach((desc, i) => {
-        const imgIndex = (i + 1).toString().padStart(2, '0');
-        const figure = document.createElement('figure');
-        const img = document.createElement('img');
-        const caption = document.createElement('figcaption');
-        img.src = `images/${projectId}_${imgIndex}.png`;
-        img.alt = desc;
-        caption.textContent = desc;
-        figure.appendChild(img);
-        figure.appendChild(caption);
-        figure.classList.add('gallery-item');
-        gallery.appendChild(figure);
-
-        const dot = document.createElement('span');
-        if (i === 0) dot.classList.add('active');
-        indicators.appendChild(dot);
-      });
-
-      // Auto scroll
-      let index = 0;
-      setInterval(() => {
-        const itemWidth = gallery.querySelector('.gallery-item')?.offsetWidth || gallery.offsetWidth;
-        index = (index + 1) % descriptions.length;
-        gallery.scrollTo({ left: itemWidth * index, behavior: 'smooth' });
-        Array.from(indicators.children).forEach((dot, i) => dot.classList.toggle('active', i === index));
-      }, 5000);
-
-      // Touch swipe updates indicators
-      let timeout;
-      gallery.addEventListener('scroll', () => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-          const scrollLeft = gallery.scrollLeft;
-          const itemWidth = gallery.querySelector('.gallery-item')?.offsetWidth || gallery.offsetWidth;
-          const newIndex = Math.round(scrollLeft / itemWidth);
-          Array.from(indicators.children).forEach((dot, i) => dot.classList.toggle('active', i === newIndex));
-        }, 100);
-      });
-    });
-  </script>
 </body>
 </html>
