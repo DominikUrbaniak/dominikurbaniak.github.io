@@ -137,6 +137,62 @@
       color: #0366d6;
       text-decoration: none;
     }
+    .gallery-controls {
+      position: absolute;
+      top: 40%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 1rem;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .gallery-container:hover .gallery-controls {
+      opacity: 1;
+    }
+    .gallery-controls button {
+      font-size: 2rem;
+      background: rgba(0, 0, 0, 0.4);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      pointer-events: auto;
+      transition: background 0.3s ease;
+    }
+    .gallery-controls button:hover {
+      background: rgba(0, 0, 0, 0.7);
+    }
+    .gallery-item {
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 60vh;
+      max-height: 500px;
+      box-sizing: border-box;
+    }
+    .gallery img {
+      max-height: 80%;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      border-radius: 0.5rem;
+      cursor: zoom-in;
+      transition: transform 0.3s ease;
+    }
+    .gallery img:active {
+      transform: scale(1.5);
+      cursor: zoom-out;
+    }
   </style>
 </head>
 <body>
