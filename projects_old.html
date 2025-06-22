@@ -229,6 +229,23 @@
   .gallery-indicators span.active {
     background-color: #0366d6;
   }
+  .glide__bullets {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  .glide__bullet {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ccc;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .glide__bullet.glide__bullet--active {
+    background: #0366d6;
+  }
   </style>
 </head>
 <body>
