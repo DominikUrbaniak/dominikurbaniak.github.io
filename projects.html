@@ -34,8 +34,21 @@
       max-width: 1100px;
       margin: auto;
     }
-    h1 {
+    .project-nav {
       text-align: center;
+      margin-bottom: 1rem;
+    }
+    .project-nav span {
+      display: inline-block;
+      margin: 0 0.5rem;
+      padding: 0.5rem 1rem;
+      background: #eee;
+      border-radius: 999px;
+      font-weight: bold;
+    }
+    .project-nav .active {
+      background: #0366d6;
+      color: white;
     }
     .glide__slide {
       padding: 1rem;
@@ -57,6 +70,24 @@
       width: 100%;
       border-radius: 0.5rem;
       margin-top: 1rem;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .gallery figure {
+      flex: 1 1 calc(50% - 1rem);
+      margin: 0;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 0.5rem;
+    }
+    .gallery figcaption {
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
     }
     .glide__bullets {
       display: flex;
@@ -84,7 +115,12 @@
   </nav>
 
   <main>
-    <h1>My Projects</h1>
+    <div class="project-nav">
+      <span class="active">Trajectory Planning</span>
+      <span>5G Edge Robotics</span>
+      <span>Task & Motion Planning</span>
+      <span>HDR Depth Estimation</span>
+    </div>
     <div class="glide">
       <div class="glide__track" data-glide-el="track">
         <ul class="glide__slides">
@@ -95,6 +131,16 @@
               <div class="video-section">
                 <video controls src="videos/trajectory_generation.mp4"></video>
               </div>
+              <div class="gallery">
+                <figure>
+                  <img src="images/1_01.png" alt="Perception pipeline example">
+                  <figcaption>Point cloud-based object segmentation</figcaption>
+                </figure>
+                <figure>
+                  <img src="images/1_02.png" alt="Simulated environment">
+                  <figcaption>Simulation setup for pick-and-place</figcaption>
+                </figure>
+              </div>
             </section>
           </li>
           <li class="glide__slide">
@@ -103,6 +149,16 @@
               <p>Robot control over 5G networks with edge computation for latency-sensitive manipulation. Tasks include push-based and teleoperation interaction. (Journal paper, includes video submission)</p>
               <div class="video-section">
                 <video controls src="videos/IEEE_Access_2024_final.mp4"></video>
+              </div>
+              <div class="gallery">
+                <figure>
+                  <img src="images/2_01.png" alt="5G robot control demo">
+                  <figcaption>Low-latency control pipeline</figcaption>
+                </figure>
+                <figure>
+                  <img src="images/2_02.png" alt="Push-based task">
+                  <figcaption>Push interaction under edge computation</figcaption>
+                </figure>
               </div>
             </section>
           </li>
@@ -113,12 +169,32 @@
               <div class="video-section">
                 <video controls src="videos/humanoids_video_final.mp4"></video>
               </div>
+              <div class="gallery">
+                <figure>
+                  <img src="images/3_01.png" alt="MATLAB task planner">
+                  <figcaption>Custom task planning dashboard</figcaption>
+                </figure>
+                <figure>
+                  <img src="images/3_02.png" alt="Motion primitives">
+                  <figcaption>Execution of motion primitives in simulation</figcaption>
+                </figure>
+              </div>
             </section>
           </li>
           <li class="glide__slide">
             <section class="project">
               <h2>Depth Estimation with High Dynamic Range Imaging</h2>
               <p>Depth prediction from a custom-built stereo camera leveraging HDR capture for robust results in extreme lighting conditions.</p>
+              <div class="gallery">
+                <figure>
+                  <img src="images/4_01.png" alt="Stereo HDR camera">
+                  <figcaption>Custom stereo setup for HDR imaging</figcaption>
+                </figure>
+                <figure>
+                  <img src="images/4_02.png" alt="Depth map example">
+                  <figcaption>Depth map generated from HDR stereo images</figcaption>
+                </figure>
+              </div>
             </section>
           </li>
         </ul>
@@ -134,13 +210,21 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.6.0/dist/glide.min.js"></script>
   <script>
-    new Glide('.glide', {
+    const glide = new Glide('.glide', {
       type: 'carousel',
       startAt: 0,
       perView: 1,
       focusAt: 'center',
       gap: 20,
-    }).mount();
+    });
+
+    glide.on('run', () => {
+      document.querySelectorAll('.project-nav span').forEach((el, i) => {
+        el.classList.toggle('active', i === glide.index);
+      });
+    });
+
+    glide.mount();
   </script>
 </body>
 </html>
