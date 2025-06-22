@@ -91,47 +91,6 @@
       font-size: 0.9rem;
       margin-top: 0.5rem;
     }
-    .lightbox {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.8);
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      color: white;
-    }
-    .lightbox.active {
-      display: flex;
-    }
-    .lightbox img {
-      max-width: 90vw;
-      max-height: 70vh;
-      border-radius: 1rem;
-    }
-    .lightbox figcaption {
-      margin-top: 1rem;
-      text-align: center;
-    }
-    .lightbox-controls {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      max-width: 800px;
-      margin-top: 1rem;
-    }
-    .lightbox-controls button {
-      background: rgba(255,255,255,0.1);
-      border: none;
-      color: white;
-      font-size: 2rem;
-      cursor: pointer;
-      padding: 0.5rem 1rem;
-    }
     .glide__bullets {
       display: flex;
       justify-content: center;
@@ -149,46 +108,79 @@
     .glide__bullet.glide__bullet--active {
       background: #0366d6;
     }
-    .lightbox-controls {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      padding: 0 2rem;
-      transform: translateY(-50%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-    .lightbox:hover .lightbox-controls {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .lightbox-controls button {
-      background: rgba(0, 0, 0, 0.5);
-      border: none;
-      border-radius: 50%;
-      width: 3rem;
-      height: 3rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-      transition: background 0.3s ease, transform 0.2s ease;
-    }
-    .lightbox-controls button:hover {
-      background: rgba(0, 0, 0, 0.8);
-      transform: scale(1.1);
-    }
-    .lightbox-controls svg {
-      width: 1.2rem;
-      height: 1.2rem;
-      fill: white;
-    }
+    .lightbox {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+  }
+  .lightbox.active {
+    display: flex;
+  }
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 70vh;
+    border-radius: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  .lightbox figcaption {
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+  .lightbox-indicator {
+    margin-top: 0.25rem;
+    font-size: 0.9rem;
+    color: #ccc;
+  }
+  .lightbox-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    max-width: 90vw;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    padding: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .lightbox:hover .lightbox-controls {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .lightbox-controls button {
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  .lightbox-controls button:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
+  }
+  .lightbox-controls svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: white;
+  }
   </style>
 </head>
 <body>
@@ -294,6 +286,7 @@
   <div id="lightbox" class="lightbox">
   <img id="lightbox-img" src="" alt="">
   <figcaption id="lightbox-caption"></figcaption>
+  <div class="lightbox-indicator" id="lightbox-indicator"></div>
   <div class="lightbox-controls">
     <button onclick="navigateLightbox(-1)">
       <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" /></svg>
@@ -325,17 +318,19 @@
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxCaption = document.getElementById('lightbox-caption');
+    const lightboxIndicator = document.getElementById('lightbox-indicator');
+
     let currentImages = [];
     let currentIndex = 0;
 
-    document.querySelectorAll('.gallery figure').forEach((fig, index, all) => {
+    document.querySelectorAll('.gallery figure').forEach((fig) => {
       fig.addEventListener('click', () => {
-        const images = Array.from(fig.parentNode.querySelectorAll('figure'));
-        currentImages = images.map(f => ({
+        const figures = Array.from(fig.parentNode.querySelectorAll('figure'));
+        currentImages = figures.map(f => ({
           src: f.querySelector('img').src,
           caption: f.querySelector('figcaption')?.textContent || ''
         }));
-        currentIndex = images.indexOf(fig);
+        currentIndex = figures.indexOf(fig);
         openLightbox(currentImages[currentIndex]);
       });
     });
@@ -343,6 +338,7 @@
     function openLightbox(item) {
       lightboxImg.src = item.src;
       lightboxCaption.textContent = item.caption;
+      lightboxIndicator.textContent = `${currentIndex + 1} / ${currentImages.length}`;
       lightbox.classList.add('active');
     }
 
@@ -352,11 +348,7 @@
       openLightbox(currentImages[currentIndex]);
     }
 
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) lightbox.classList.remove('active');
-    });
-
-    // add swipe support to lightbox
+    // Swipe gesture support
     let touchStartX = 0;
     let touchEndX = 0;
 
@@ -373,11 +365,16 @@
       const swipeThreshold = 50;
       if (touchEndX < touchStartX - swipeThreshold) {
         navigateLightbox(1);
-      }
-      if (touchEndX > touchStartX + swipeThreshold) {
+      } else if (touchEndX > touchStartX + swipeThreshold) {
         navigateLightbox(-1);
       }
     }
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        lightbox.classList.remove('active');
+      }
+    });
   </script>
 </body>
 </html>
