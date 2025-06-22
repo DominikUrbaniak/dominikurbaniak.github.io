@@ -114,13 +114,16 @@
     }
 
     .work-img {
-      width: 280px;
-      height: 180px; /* Fixed height for consistent grid appearance */
-      object-fit: cover; /* Crop to fill the frame while preserving aspect ratio */
+      width: 100%;
+      max-width: 400px;
+      height: 225px; /* 16:9 ratio for 400px width */
+      object-fit: cover;
       border-radius: 1rem;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease;
     }
+
+
 
     .work-img:hover {
       transform: scale(1.05);
@@ -133,6 +136,14 @@
       margin-top: 0.5rem;
       font-size: 0.9rem;
       color: #555;
+    }
+
+    @media (max-width: 768px) {
+      .work-img {
+        max-width: 90%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+      }
     }
 
     @media (max-width: 768px) {
