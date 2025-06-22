@@ -115,7 +115,8 @@
 
     .work-img {
       width: 280px;
-      max-width: 90%;
+      height: 180px; /* Fixed height for consistent grid appearance */
+      object-fit: cover; /* Crop to fill the frame while preserving aspect ratio */
       border-radius: 1rem;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease;
@@ -123,6 +124,15 @@
 
     .work-img:hover {
       transform: scale(1.05);
+    }
+    .work-item {
+      text-align: center;
+    }
+
+    .work-item figcaption {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #555;
     }
 
   </style>
@@ -154,6 +164,16 @@
       <div class="work-gallery">
         <img src="images/home/me_02.jpg" alt="Working on robotics" class="work-img">
         <img src="images/home/me_03.jpg" alt="Giving a presentation" class="work-img">
+      </div>
+      <div class="work-gallery">
+        <figure class="work-item">
+          <img src="images/home/me_03.jpg" alt="Giving a presentation" class="work-img">
+          <figcaption>PIMRC 2024 poster presentation on robotics requirements for 5G edge computing.</figcaption>
+        </figure>
+        <figure class="work-item">
+          <img src="images/home/me_02.jpg" alt="Working on robotics" class="work-img">
+          <figcaption>Testing hand-landmark detection by mediapipe for teleoperation experiment.</figcaption>
+        </figure>
       </div>
     </section>
 
