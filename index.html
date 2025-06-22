@@ -234,6 +234,7 @@
       <div class="gallery-container">
         <div class="gallery-controls"><button onclick="scrollGallery('gallery1', -1)">&#8592;</button><button onclick="scrollGallery('gallery1', 1)">&#8594;</button></div>
         <div class="gallery" id="gallery1"></div>
+        <div class="gallery-indicators" id="indicators1"></div>
       </div>
       <div class="video-section">
         <video controls src="videos/trajectory_planning.mp4"></video>
@@ -341,6 +342,15 @@
         if (i === 0) dot.classList.add('active');
         indicators.appendChild(dot);
       });
+
+      // Auto scroll
+      let index = 0;
+      setInterval(() => {
+        const itemWidth = gallery.querySelector('.gallery-item')?.offsetWidth || gallery.offsetWidth;
+        index = (index + 1) % descriptions.length;
+        gallery.scrollTo({ left: itemWidth * index, behavior: 'smooth' });
+        Array.from(indicators.children).forEach((dot, i) => dot.classList.toggle('active', i === index));
+      }, 5000);
 
       // Touch swipe updates indicators
       let timeout;
