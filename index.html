@@ -74,6 +74,7 @@
       overflow-x: hidden;
       scroll-behavior: smooth;
       gap: 1rem;
+      touch-action: pan-y;
     }
     .gallery-item {
       flex: 0 0 100%;
@@ -92,7 +93,7 @@
     }
     .gallery-controls {
       text-align: center;
-      margin: 0.5rem 0 1.5rem;
+      margin: 0.5rem 0 1rem;
     }
     .gallery-controls button {
       font-size: 1.2rem;
@@ -103,6 +104,21 @@
       color: white;
       border-radius: 0.25rem;
       cursor: pointer;
+    }
+    .gallery-indicators {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .gallery-indicators span {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: #ccc;
+      border-radius: 50%;
+      margin: 0 5px;
+    }
+    .gallery-indicators span.active {
+      background: #0366d6;
     }
     .video-section {
       margin-top: 1rem;
@@ -143,6 +159,7 @@
       <div class="gallery-container">
         <div class="gallery-controls"><button onclick="scrollGallery('gallery1', -1)">&#8592;</button><button onclick="scrollGallery('gallery1', 1)">&#8594;</button></div>
         <div class="gallery" id="gallery1"></div>
+        <div class="gallery-indicators" id="indicators1"></div>
       </div>
       <div class="video-section">
         <video controls src="videos/trajectory_planning.mp4"></video>
@@ -155,6 +172,7 @@
       <div class="gallery-container">
         <div class="gallery-controls"><button onclick="scrollGallery('gallery2', -1)">&#8592;</button><button onclick="scrollGallery('gallery2', 1)">&#8594;</button></div>
         <div class="gallery" id="gallery2"></div>
+        <div class="gallery-indicators" id="indicators2"></div>
       </div>
       <div class="video-section">
         <video controls src="videos/5g_edge_robotics.mp4"></video>
@@ -167,6 +185,7 @@
       <div class="gallery-container">
         <div class="gallery-controls"><button onclick="scrollGallery('gallery3', -1)">&#8592;</button><button onclick="scrollGallery('gallery3', 1)">&#8594;</button></div>
         <div class="gallery" id="gallery3"></div>
+        <div class="gallery-indicators" id="indicators3"></div>
       </div>
       <div class="video-section">
         <video controls src="videos/tamp_experiment.mp4"></video>
@@ -179,12 +198,13 @@
       <div class="gallery-container">
         <div class="gallery-controls"><button onclick="scrollGallery('gallery4', -1)">&#8592;</button><button onclick="scrollGallery('gallery4', 1)">&#8594;</button></div>
         <div class="gallery" id="gallery4"></div>
+        <div class="gallery-indicators" id="indicators4"></div>
       </div>
     </section>
   </main>
 
   <footer>
-    <p>Connect on <a href="https://www.linkedin.com/in/dominik-urbaniak-a074a9207" target="_blank">LinkedIn</a></p>
+    <p>Connect on <a href="https://www.linkedin.com/in/dominikurbaniak" target="_blank">LinkedIn</a></p>
     <p>&copy; 2025 Dominik Urbaniak</p>
   </footer>
 
@@ -213,6 +233,7 @@
 
     Object.entries(galleryData).forEach(([projectId, descriptions]) => {
       const gallery = document.getElementById(`gallery${projectId}`);
+      const indicators = document.getElementById(`indicators${projectId}`);
       descriptions.forEach((desc, i) => {
         const imgIndex = (i + 1).toString().padStart(2, '0');
         const figure = document.createElement('figure');
@@ -225,6 +246,31 @@
         figure.appendChild(caption);
         figure.classList.add('gallery-item');
         gallery.appendChild(figure);
+
+        const dot = document.createElement('span');
+        if (i === 0) dot.classList.add('active');
+        indicators.appendChild(dot);
+      });
+
+      // Auto scroll
+      let index = 0;
+      setInterval(() => {
+        const itemWidth = gallery.querySelector('.gallery-item')?.offsetWidth || gallery.offsetWidth;
+        index = (index + 1) % descriptions.length;
+        gallery.scrollTo({ left: itemWidth * index, behavior: 'smooth' });
+        Array.from(indicators.children).forEach((dot, i) => dot.classList.toggle('active', i === index));
+      }, 5000);
+
+      // Touch swipe updates indicators
+      let timeout;
+      gallery.addEventListener('scroll', () => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          const scrollLeft = gallery.scrollLeft;
+          const itemWidth = gallery.querySelector('.gallery-item')?.offsetWidth || gallery.offsetWidth;
+          const newIndex = Math.round(scrollLeft / itemWidth);
+          Array.from(indicators.children).forEach((dot, i) => dot.classList.toggle('active', i === newIndex));
+        }, 100);
       });
     });
   </script>
