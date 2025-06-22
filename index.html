@@ -45,6 +45,15 @@
       margin: 2rem auto;
       font-size: 1.1rem;
     }
+    .intro-portrait {
+      width: 140px;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #60a5fa;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      margin: 1rem 0;
+    }
     .cta-button {
       display: inline-block;
       margin-top: 1rem;
@@ -92,18 +101,6 @@
       flex-direction: column;
       align-items: flex-start;
     }
-
-    .portrait-img {
-      position: absolute;
-      top: 2rem;
-      right: 2rem;
-      width: 120px;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 4px solid #60a5fa;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
     .work-img {
       width: 100%;
       max-width: 400px;
@@ -142,10 +139,10 @@
     }
 
     .work-item figcaption {
-      margin-top: 0.5rem;
+      margin-top: 0.2em;
       font-size: 0.9rem;
       color: #555;
-      padding: 0 0.5rem;
+      padding: 0 0.2rem;
     }
 
     @media (max-width: 768px) {
@@ -153,17 +150,6 @@
         max-width: 90%;
         height: auto;
         aspect-ratio: 16 / 9;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .portrait-img {
-        position: static;
-        align-self: center;
-        margin-top: 1.5rem;
-      }
-      .about-content {
-        align-items: center;
       }
     }
     @media (max-width: 768px) {
@@ -189,9 +175,11 @@
   <main>
     <section class="intro">
       <h1>Dominik Urbaniak</h1>
+      <img src="images/home/me_01.jpg" alt="Portrait of Dominik Urbaniak" class="intro-portrait">
       <p>I’m a robotics researcher focused on motion planning, perception, and applied AI. This portfolio highlights key hands-on projects and publications.</p>
       <a href="projects.html" class="cta-button">View Projects →</a>
     </section>
+
 
     <section id="about" class="about">
       <div class="about-content">
@@ -201,7 +189,6 @@
             I am a final-year PhD student in robotics and specialize in developing intelligent robotic systems that integrate perception, planning, and control. I value interdisciplinary and intercultural collaborations and strive to connect academic and industrial know-how to help developing automation solutions that benefit everyone.
           </p>
         </div>
-        <img src="images/home/me_01.jpg" alt="Dominik Urbaniak portrait" class="portrait-img">
       </div>
       <div class="work-gallery">
         <figure class="work-item">
