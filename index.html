@@ -193,6 +193,68 @@
       transform: scale(1.5);
       cursor: zoom-out;
     }
+    .gallery-controls {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 1rem;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 10;
+    }
+    .gallery-container:hover .gallery-controls {
+      opacity: 1;
+    }
+    .gallery-controls button {
+      font-size: 1.5rem;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      pointer-events: auto;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .gallery-controls button:hover {
+      background: rgba(0, 0, 0, 0.8);
+      transform: scale(1.1);
+    }
+    .gallery-item {
+      flex: 0 0 100%;
+      scroll-snap-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 60vh;
+      max-height: 500px;
+      box-sizing: border-box;
+    }
+    .gallery img {
+      max-height: 80%;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      border-radius: 0.5rem;
+      cursor: zoom-in;
+      transition: transform 0.3s ease;
+      display: block;
+      margin: 0 auto;
+    }
+    .gallery img:active {
+      transform: scale(1.5);
+      cursor: zoom-out;
+    }
   </style>
 </head>
 <body>
@@ -278,6 +340,28 @@
       const container = document.getElementById(id);
       const itemWidth = container.querySelector('.gallery-item')?.offsetWidth || container.offsetWidth;
       container.scrollBy({ left: itemWidth * direction, behavior: 'smooth' });
+    }
+
+    const autoScrollTimers = {};
+
+    function startAutoScroll(galleryId, indicators, length) {
+      stopAutoScroll(galleryId);
+      let gallery = document.getElementById(galleryId);
+      let index = 0;
+      autoScrollTimers[galleryId] = setInterval(() => {
+        if (!gallery.matches(':hover')) {
+          const itemWidth = gallery.querySelector('.gallery-item')?.offsetWidth || gallery.offsetWidth;
+          index = (index + 1) % length;
+          gallery.scrollTo({ left: itemWidth * index, behavior: 'smooth' });
+          Array.from(indicators.children).forEach((dot, i) => dot.classList.toggle('active', i === index));
+        }
+      }, 5000);
+    }
+
+    function stopAutoScroll(galleryId) {
+      if (autoScrollTimers[galleryId]) {
+        clearInterval(autoScrollTimers[galleryId]);
+      }
     }
 
     const galleryData = {
