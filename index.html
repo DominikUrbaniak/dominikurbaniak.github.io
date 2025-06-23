@@ -101,69 +101,103 @@
       flex-direction: column;
       align-items: flex-start;
     }
-    .work-img {
-      width: 100%;
-      max-width: 400px;
-      height: 225px; /* 16:9 ratio for 400px width */
-      object-fit: cover;
-      border-radius: 1rem;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
-    }
 
-    .work-gallery {
+    .gallery {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
-      margin-top: 2rem;
+      margin-top: 1rem;
     }
-
-    .work-item {
-      flex: 1 1 48%;
-      box-sizing: border-box;
-      text-align: center;
+    .gallery figure {
+      flex: 1 1 calc(50% - 1rem);
+      margin: 0;
+      cursor: pointer;
     }
-
-    .work-item img {
+    .gallery img {
       width: 100%;
-      height: auto;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-      border-radius: 0.2rem;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
+      border-radius: 0.5rem;
     }
-
-    .work-item img:hover {
-      transform: scale(1.03);
-    }
-
-    .work-item figcaption {
-      margin-top: 0.2rem;
+    .gallery figcaption {
       font-size: 0.9rem;
-      color: #555;
-      padding: 0 0.2rem;
+      margin-top: 0.5rem;
     }
-
-    @media (max-width: 768px) {
-      .work-img {
-        max-width: 90%;
-        height: auto;
-        aspect-ratio: 16 / 9;
-      }
-    }
-    @media (max-width: 768px) {
-      .work-item img {
-        height: auto;
-        aspect-ratio: 16 / 9;
-      }
-    }
-    @media (max-width: 768px) {
-      .work-item {
-        flex: 1 1 100%;
-      }
-    }
-
+    .lightbox {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+  }
+  .lightbox.active {
+    display: flex;
+  }
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 70vh;
+    border-radius: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  .lightbox figcaption {
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+  .lightbox-indicator {
+    margin-top: 0.25rem;
+    font-size: 0.9rem;
+    color: #ccc;
+  }
+  .lightbox-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    max-width: 90vw;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    padding: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .lightbox:hover .lightbox-controls {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .lightbox-controls button {
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  .lightbox-controls button:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
+  }
+  .lightbox-controls svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    fill: white;
+  }
+  .gallery img:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+  }
   </style>
 </head>
 <body>
@@ -190,16 +224,17 @@
           </p>
         </div>
       </div>
-      <div class="work-gallery">
-        <figure class="work-item">
-          <img src="images/home/me_03.jpg" alt="Giving a presentation" class="work-img">
+      <div class="gallery">
+        <figure>
+          <img src="images/home/me_03.jpg" alt="Giving a presentation">
           <figcaption>PIMRC 2024 poster presentation on robotics requirements for 5G edge computing.</figcaption>
         </figure>
-        <figure class="work-item">
-          <img src="images/home/me_02.jpg" alt="Working on robotics" class="work-img">
+        <figure>
+          <img src="images/home/me_02.jpg" alt="Working on robotics">
           <figcaption>Testing hand-landmark detection by mediapipe for teleoperation experiment.</figcaption>
         </figure>
       </div>
+
     </section>
 
   </main>
@@ -208,5 +243,83 @@
     <p>Connect on <a href="https://www.linkedin.com/in/dominik-urbaniak-a074a9207" target="_blank">LinkedIn</a></p>
     <p>&copy; 2025 Dominik Urbaniak</p>
   </footer>
+  <!-- Lightbox for all .gallery images -->
+  <div id="lightbox" class="lightbox">
+    <img id="lightbox-img" src="" alt="">
+    <figcaption id="lightbox-caption"></figcaption>
+    <div class="lightbox-indicator" id="lightbox-indicator"></div>
+    <div class="lightbox-controls">
+      <button onclick="navigateLightbox(-1)">
+        <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button onclick="navigateLightbox(1)">
+        <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const lightboxIndicator = document.getElementById('lightbox-indicator');
+
+    let currentImages = [];
+    let currentIndex = 0;
+
+    document.querySelectorAll('.gallery figure').forEach((fig) => {
+      fig.addEventListener('click', () => {
+        const figures = Array.from(fig.parentNode.querySelectorAll('figure'));
+        currentImages = figures.map(f => ({
+          src: f.querySelector('img').src,
+          caption: f.querySelector('figcaption')?.textContent || ''
+        }));
+        currentIndex = figures.indexOf(fig);
+        openLightbox(currentImages[currentIndex]);
+      });
+    });
+
+    function openLightbox(item) {
+      lightboxImg.src = item.src;
+      lightboxCaption.textContent = item.caption;
+      lightboxIndicator.textContent = `${currentIndex + 1} / ${currentImages.length}`;
+      lightbox.classList.add('active');
+    }
+
+    function navigateLightbox(direction) {
+      if (!currentImages.length) return;
+      currentIndex = (currentIndex + direction + currentImages.length) % currentImages.length;
+      openLightbox(currentImages[currentIndex]);
+    }
+
+    // Swipe gesture support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    lightbox.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    lightbox.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleGesture();
+    });
+
+    function handleGesture() {
+      const swipeThreshold = 50;
+      if (touchEndX < touchStartX - swipeThreshold) {
+        navigateLightbox(1);
+      } else if (touchEndX > touchStartX + swipeThreshold) {
+        navigateLightbox(-1);
+      }
+    }
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        lightbox.classList.remove('active');
+      }
+    });
+  </script>
+
 </body>
 </html>
