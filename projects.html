@@ -174,6 +174,61 @@
     transform: scale(1.02);
     transition: transform 0.3s ease;
   }
+  /* container to center the buttons */
+  .project-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  /* generic button style */
+  .project-button {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    transition: background 0.2s ease, transform 0.1s ease;
+  }
+  .project-button:hover {
+    transform: translateY(-2px);
+  }
+
+  /* differentiate by purpose */
+  .project-button.github {
+    background: #0366d6;
+    color: #fff;
+  }
+  .project-button.github:hover {
+    background: #0254b3;
+  }
+
+  .project-button.paper {
+    background: #10b981;
+    color: #fff;
+  }
+  .project-button.paper:hover {
+    background: #0f9b72;
+  }
+
+  .project-button.presentation {
+    background: #8b5cf6;
+    color: #fff;
+  }
+  .project-button.presentation:hover {
+    background: #7a3ee3;
+  }
+  /* plain‐text citation under each project */
+  .project-citation {
+    font-size: 0.85rem;
+    color: #555;
+    font-style: italic;
+    text-align: center;
+    margin-top: 1rem;
+    line-height: 1.4;
+  }
   </style>
 </head>
 <body>
@@ -194,8 +249,8 @@
         <ul class="glide__slides">
           <li class="glide__slide">
   <section class="project">
-    <h2>Fast and Smooth Trajectory Generation for Robot Manipulators</h2>
-    <p>Near-optimal trajectory planning for pick-and-place tasks using policy-based Reinforcement Learning (RL) and Deep Learning (DL). Extends the contributions of the TAMP project by creating more trajectory variations, including point cloud perception and real robot experiments. (Journal paper in progress)</p>
+    <h2>PhD part 2: Fast and Smooth Trajectory Generation for Robot Manipulators</h2>
+    <p>Near-optimal trajectory planning for pick-and-place tasks using policy-based Reinforcement Learning (RL) and Deep Learning (DL). Extends the contributions of the TAMP project by creating more trajectory variations, including point cloud perception and real robot experiments. (Journal paper in progress, code will be available after publication)</p>
     <div class="video-section">
       <video controls src="videos/trajectory_generation.mp4"></video>
     </div>
@@ -237,10 +292,29 @@
 </li>
 <li class="glide__slide">
   <section class="project">
-    <h2>5G Edge Computing with Real Robot Experiments</h2>
+    <h2>PhD part 1: 5G Edge Computing with Real Robot Experiments</h2>
     <p>Robot control over 5G networks with edge computation for latency-sensitive manipulation. Tasks include push-based and teleoperation interaction. (Journal paper, includes video submission)</p>
     <div class="video-section">
       <video controls src="videos/IEEE_Access_2024_final.mp4"></video>
+    </div>
+    <div class="project-buttons">
+      <!-- always show GitHub if you have a repo -->
+      <a
+        href="https://github.com/DominikUrbaniak/ros2_distributed_control_system.git"
+        class="project-button github"
+        target="_blank" rel="noopener"
+      >
+        View on GitHub
+      </a>
+
+      <!-- only include this if there’s a paper URL -->
+      <a
+        href="https://ieeexplore.ieee.org/abstract/document/10706914"
+        class="project-button paper"
+        target="_blank" rel="noopener"
+      >
+        Read Paper
+      </a>
     </div>
     <div class="gallery">
       <figure>
@@ -260,14 +334,40 @@
         <figcaption>Push experiment snapshot with consumer camera and local edge server</figcaption>
       </figure>
     </div>
+    <p class="project-citation">
+      Urbaniak, D., Damsgaard, S. B., Zhang, W., Rosell, J., Suárez, R., & Suppa, M. (2024). Distributed Control for Collaborative Robotic Systems Using 5G Edge Computing. IEEE access.
+    </p>
   </section>
 </li>
 <li class="glide__slide">
   <section class="project">
-    <h2>Task & Motion Planning for Long-Horizon Tasks</h2>
+    <h2>Master's thesis: Task & Motion Planning for Long-Horizon Tasks</h2>
     <p>Simulation-based experiments using symbolic task planning and motion primitives, monitored via a custom MATLAB dashboard. (Conference paper, includes video submission)</p>
     <div class="video-section">
       <video controls src="videos/humanoids_video_final.mp4"></video>
+    </div>
+    <div class="project-buttons">
+      <a
+        href="https://github.com/DominikUrbaniak/task-and-motion-planning.git"
+        class="project-button github"
+        target="_blank" rel="noopener"
+      >
+        View on GitHub
+      </a>
+      <a
+        href="https://github.com/DominikUrbaniak/task-and-motion-planning/blob/main/Master_thesis.pdf"
+        class="project-button paper"
+        target="_blank" rel="noopener"
+      >
+        Read Thesis
+      </a>
+      <a
+        href="https://github.com/DominikUrbaniak/task-and-motion-planning/blob/main/MT_final_presentation.pdf"
+        class="project-button presentation"
+        target="_blank" rel="noopener"
+      >
+        View Presentation
+      </a>
     </div>
     <div class="gallery">
       <figure>
@@ -279,12 +379,38 @@
         <figcaption>Experiment snapshot during the execution of the trajectory</figcaption>
       </figure>
     </div>
+    <p class="project-citation">
+      Urbaniak, D., Agostini, A., & Lee, D. (2021, July). Combining task and motion planning using policy improvement with path integrals. In 2020 IEEE-RAS 20th International Conference on Humanoid Robots (Humanoids) (pp. 149-155). IEEE.
+    </p>
   </section>
 </li>
 <li class="glide__slide">
   <section class="project">
-    <h2>Depth Estimation with High Dynamic Range Imaging</h2>
+    <h2>Bachelor's thesis: Depth Estimation with High Dynamic Range Imaging</h2>
     <p>Depth prediction from a custom-built stereo camera leveraging HDR capture for robust results in extreme lighting conditions.</p>
+    <div class="project-buttons">
+      <a
+        href="https://github.com/DominikUrbaniak/HDR-depth-imaging"
+        class="project-button github"
+        target="_blank" rel="noopener"
+      >
+        View on GitHub
+      </a>
+      <a
+        href="https://github.com/DominikUrbaniak/HDR-depth-imaging/blob/main/Bachelor_thesis.pdf"
+        class="project-button paper"
+        target="_blank" rel="noopener"
+      >
+        Read Thesis
+      </a>
+      <a
+        href="https://github.com/DominikUrbaniak/HDR-depth-imaging/blob/main/BT_final_presentation.pdf"
+        class="project-button presentation"
+        target="_blank" rel="noopener"
+      >
+        View Presentation
+      </a>
+    </div>
     <div class="gallery">
       <figure>
         <img src="images/4_01.png" alt="Experimental setup">
