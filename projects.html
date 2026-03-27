@@ -244,10 +244,10 @@
 
   <main>
     <div class="project-nav">
-      <span onclick="glide.go('=0')" class="active">Trajectory Planning</span>
-      <span onclick="glide.go('=1')">5G Edge Robotics</span>
-      <span onclick="glide.go('=2')">Task & Motion Planning</span>
-      <span onclick="glide.go('=3')">HDR Depth Estimation</span>
+      <span onclick="goToSlide(0)" class="active">Obstacle Avoidance</span>
+      <span onclick="goToSlide(1)">5G Edge Robotics</span>
+      <span onclick="goToSlide(2)">Task & Motion Planning</span>
+      <span onclick="goToSlide(3)">HDR Depth Estimation</span>
     </div>
     <div class="glide">
       <div class="glide__track" data-glide-el="track">
@@ -483,9 +483,19 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@3.6.0/dist/glide.min.js"></script>
   <script>
+    const projectIds = [
+      "avoidance",
+      "5g",
+      "tamp",
+      "hdr"
+    ];
+    
+    const hash = window.location.hash.replace("#", "");
+    const startIndex = projectIds.indexOf(hash);
+    
     const glide = new Glide('.glide', {
       type: 'carousel',
-      startAt: 0,
+      startAt: startIndex >= 0 ? startIndex : 0,
       perView: 1,
       focusAt: 'center',
       gap: 20,
@@ -495,7 +505,11 @@
       document.querySelectorAll('.project-nav span').forEach((el, i) => {
         el.classList.toggle('active', i === glide.index);
       });
+      // update URL hash
+      const id = projectIds[glide.index];
+      history.replaceState(null, "", "#" + id);
     });
+    
 
     glide.mount();
 
@@ -518,6 +532,12 @@
         openLightbox(currentImages[currentIndex]);
       });
     });
+
+    function goToSlide(index) {
+      glide.go('=' + index);
+      const id = projectIds[index];
+      history.replaceState(null, "", "#" + id);
+    }
 
     function openLightbox(item) {
       lightboxImg.src = item.src;
