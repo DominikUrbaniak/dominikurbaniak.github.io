@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio of Dominik Urbaniak, a robotics and AI researcher with practical experience in manipulation, perception, and planning systems." />
+  <meta property="og:title" content="Dominik Urbaniak – Robotics & AI Portfolio" />
+  <meta property="og:description" content="Showcasing robotics and AI projects in manipulation, perception, edge computing and planning." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="preview.png" />
+  <meta property="og:url" content="https://dominikurbaniak.github.io" />
+  <link rel="icon" href="favicon.ico" />
+  <title>Dominik Urbaniak – Robotics & AI Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="active">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="cv.html">CV</a>
+  </nav>
+
+  <main>
+    <section class="intro">
+      <h1>Dominik Urbaniak</h1>
+      <p>Robotics Researcher | AI Systems | Manipulation & Perception</p>
+
+      <div style="display: flex; justify-content: center;">
+        <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+          <img src="images/home/me_01.jpg" alt="Portrait of Dominik Urbaniak" class="intro-portrait">
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <a href="projects.html" class="cta-button">View Projects</a>
+            <a href="cv.html" class="cta-button">View CV</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <section id="about" class="about">
+      <div class="about-content">
+        <div class="about-text">
+          <h2>About Me</h2>
+          <p>
+            I am a final-year PhD student in robotics and specialize in developing intelligent robotic systems that integrate perception, planning, and control. I value interdisciplinary and intercultural collaborations and strive to connect academic and industrial know-how to help developing automation solutions that benefit everyone.
+          </p>
+        </div>
+      </div>
+      <div class="gallery">
+        <figure>
+          <img src="images/home/me_03.jpg" alt="Giving a presentation">
+          <figcaption>PIMRC 2024 poster presentation on robotics requirements for 5G edge computing.</figcaption>
+        </figure>
+        <figure>
+          <img src="images/home/me_02.jpg" alt="Working on robotics">
+          <figcaption>Testing hand-landmark detection by mediapipe for teleoperation experiment.</figcaption>
+        </figure>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    <p>
+      Connect on
+      <a href="https://www.linkedin.com/in/dominik-urbaniak-a074a9207" target="_blank">LinkedIn</a>
+      or email
+      <a href="mailto:dominik.urbaniak@example.com">dominik.urbaniak@upc.edu</a>
+    </p>
+    <p>&copy; 2025 Dominik Urbaniak</p>
+  </footer>
+  <!-- Lightbox for all .gallery images -->
+  <div id="lightbox" class="lightbox">
+    <img id="lightbox-img" src="" alt="">
+    <figcaption id="lightbox-caption"></figcaption>
+    <div class="lightbox-indicator" id="lightbox-indicator"></div>
+    <div class="lightbox-controls">
+      <button onclick="navigateLightbox(-1)">
+        <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button onclick="navigateLightbox(1)">
+        <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const lightboxIndicator = document.getElementById('lightbox-indicator');
+
+    let currentImages = [];
+    let currentIndex = 0;
+
+    document.querySelectorAll('.gallery figure').forEach((fig) => {
+      fig.addEventListener('click', () => {
+        const figures = Array.from(fig.parentNode.querySelectorAll('figure'));
+        currentImages = figures.map(f => ({
+          src: f.querySelector('img').src,
+          caption: f.querySelector('figcaption')?.textContent || ''
+        }));
+        currentIndex = figures.indexOf(fig);
+        openLightbox(currentImages[currentIndex]);
+      });
+    });
+
+    function openLightbox(item) {
+      lightboxImg.src = item.src;
+      lightboxCaption.textContent = item.caption;
+      lightboxIndicator.textContent = `${currentIndex + 1} / ${currentImages.length}`;
+      lightbox.classList.add('active');
+    }
+
+    function navigateLightbox(direction) {
+      if (!currentImages.length) return;
+      currentIndex = (currentIndex + direction + currentImages.length) % currentImages.length;
+      openLightbox(currentImages[currentIndex]);
+    }
+
+    // Swipe gesture support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    lightbox.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    lightbox.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleGesture();
+    });
+
+    function handleGesture() {
+      const swipeThreshold = 50;
+      if (touchEndX < touchStartX - swipeThreshold) {
+        navigateLightbox(1);
+      } else if (touchEndX > touchStartX + swipeThreshold) {
+        navigateLightbox(-1);
+      }
+    }
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        lightbox.classList.remove('active');
+      }
+    });
+  </script>
+
+</body>
+</html>
