@@ -270,11 +270,11 @@
 
       <!-- only include this if there’s a paper URL -->
       <a
-        href="https://arxiv.org/abs/2510.09254"
+        href="https://upcommons.upc.edu/entities/publication/f3e475b8-76aa-4e20-8639-f5597d4fc822"
         class="project-button paper"
         target="_blank" rel="noopener"
       >
-        Read Preprint
+        Read Paper
       </a>
     </div>
     <div class="gallery">
@@ -491,10 +491,10 @@
       "tamp",
       "hdr"
     ];
-    
+
     const hash = window.location.hash.replace("#", "");
     const startIndex = projectIds.indexOf(hash);
-    
+
     const glide = new Glide('.glide', {
       type: 'carousel',
       startAt: startIndex >= 0 ? startIndex : 0,
@@ -509,7 +509,7 @@
       const id = projectIds[glide.index];
       history.replaceState(null, "", "#" + id);
     });
-    
+
 
     glide.mount();
 
@@ -518,7 +518,7 @@
         el.classList.toggle('active', i === glide.index);
       });
     }
-    
+
     // run once on load
     updateNav();
 
